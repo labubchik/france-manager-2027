@@ -26,6 +26,7 @@ function matches(w, state) {
   if (w.flags && !w.flags.every(function (f) { return state.flags[f]; })) return false;
   if (w.notFlags && w.notFlags.some(function (f) { return state.flags[f]; })) return false;
   if (w.candidate && w.candidate !== state.candidateId) return false;
+  if (w.notCandidate && w.notCandidate === state.candidateId) return false;
   if (w.camp && w.camp.indexOf(state.camp) === -1) return false;
   if (w.tvLeft && state.tvLeft <= 0) return false;
   if (w.war && Object.keys(w.war).some(function (k) { return state.wars[k] < w.war[k]; })) return false;

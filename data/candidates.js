@@ -9,7 +9,7 @@ FM.CANDIDATES = [
     bonus: 'Adoré à Kiev et à Bruxelles', malus: 'Les quartiers populaires ne le connaissent pas',
     start: { assemblee: -5, relations: { UA: 20, RU: -15, DE: 10 } } },
   { id: 'aichonchon', name: 'Jean-Luc Aichonchon', realName: 'Jean-Luc Mélenchon', party: 'La France Insoumise-moi-pas', camp: 'extreme-gauche', portrait: '📢',
-    bonus: 'Tribun hors pair : les allocutions marchent mieux', malus: 'Les marchés font une syncope',
+    bonus: 'Tribun hors pair : les allocutions marchent mieux', malus: 'Les marchés font une syncope', tvBonus: 4,
     start: { popularite: -5, tension: 10, assemblee: -10, dette: 40, relations: { US: -20, DZ: 15 } } },
   { id: 'flipper', name: 'Édouard Flipper', realName: 'Édouard Philippe', party: 'Horizons Lointains', camp: 'centre', portrait: '🧔',
     bonus: 'Rassure tout le monde', malus: 'Personne ne s\'enthousiasme',

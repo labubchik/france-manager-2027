@@ -96,3 +96,9 @@ test('trait triples weight', () => {
   const c = card('t', { post: 'interieur', when: { trait: 'cogneur' } });
   assert.strictEqual(FM.cardWeight(c, s), 3);
 });
+
+test('when.notCandidate filters', () => {
+  const { FM, s } = setup([]);
+  assert.strictEqual(FM.isEligible(card('n', { when: { notCandidate: 'flipper' } }), s), false);
+  assert.strictEqual(FM.isEligible(card('n', { when: { notCandidate: 'aichonchon' } }), s), true);
+});

@@ -108,7 +108,11 @@ FM.resolveChoice = function (state, card, choiceIndex, rng) {
     }
   }
 
-  if (choice.tv) state.tvLeft--;
+  if (choice.tv) {
+    state.tvLeft--;
+    var cand = FM.CANDIDATES.find(function (c) { return c.id === state.candidateId; });
+    if (cand && cand.tvBonus) FM.applyEffects(state, { popularite: cand.tvBonus });
+  }
   if (card.id === 'ministre-trahison') state.betrayalPending = false;
 
   (choice.setFlags || []).forEach(function (f) { state.flags[f] = true; });

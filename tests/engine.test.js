@@ -158,3 +158,11 @@ test('renderWho leader shows flag and country', () => {
   assert.strictEqual(who.name, 'Vladimir Poutrine');
   assert.ok(who.role.includes('🇷🇺') && who.role.includes('Russie'));
 });
+
+test('candidate tvBonus adds popularity on tv choices', () => {
+  const { FM, s, rng } = setup(null, 'aichonchon');
+  s.popularite = 40;
+  const c = card('tvb', [{ label: 'Ferme', tv: true, effects: {} }, { label: 'Rien' }]);
+  FM.resolveChoice(s, c, 0, rng);
+  assert.strictEqual(s.popularite, 40 + FM.CANDIDATES.find(x => x.id === 'aichonchon').tvBonus);
+});
