@@ -21,6 +21,9 @@ function setup(cabinetOverride, candidateId) {
   for (const post of FM.POSTS) cab[post] = FM.MINISTERS.find(m => m.post === post).id;
   Object.assign(cab, cabinetOverride || {});
   const s = FM.createGame({ candidateId: candidateId || 'flipper', cabinet: cab, seed: 1 });
+  // Ces tests vérifient la mécanique au rythme historique (3 cartes par mois, effets bruts).
+  FM.MONTHS_PER_CARD = 1 / 3;
+  FM.EFFECT_SCALE = 1;
   return { FM, s, rng: FM.createRng(9) };
 }
 
@@ -52,7 +55,6 @@ test('third card of month ticks month', () => {
   const before = s.dette;
   for (let i = 0; i < 3; i++) FM.resolveChoice(s, plain({}), 1, rng);
   assert.strictEqual(s.month, 1);
-  assert.strictEqual(s.cardInMonth, 0);
   assert.ok(s.dette > before);
 });
 
@@ -174,4 +176,43 @@ test('betrayal alone never ends the game', () => {
   const r = FM.resolveChoice(s, plain({}), 1, rng);
   assert.strictEqual(r.outcome.ending, null);
   assert.ok(s.danger < 100);
+});
+
+test('default pace: about 40 cards make a full term', () => {
+  const { FM, s, rng } = setup();
+  FM.MONTHS_PER_CARD = 1.5;
+  let r;
+  for (let i = 0; i < 40; i++) r = FM.resolveChoice(s, plain({}), 1, rng);
+  assert.strictEqual(s.month, 60);
+  assert.ok(['victoire', 'reelu'].includes(r.outcome.ending) || r.outcome.ending, String(r.outcome.ending));
+  assert.strictEqual(FM.dateLabel(1.5), 'Juin 2027');
+});
+
+test('month tick runs once per elapsed month', () => {
+  const { FM, s, rng } = setup();
+  FM.MONTHS_PER_CARD = 1.5;
+  let ticks = 0;
+  const orig = FM.monthTick;
+  FM.monthTick = (st, r) => { ticks++; return orig(st, r); };
+  FM.resolveChoice(s, plain({}), 1, rng);
+  assert.strictEqual(ticks, 1);
+  FM.resolveChoice(s, plain({}), 1, rng);
+  assert.strictEqual(ticks, 3);
+});
+
+test('effect scale amplifies card effects', () => {
+  const { FM, s, rng } = setup();
+  FM.EFFECT_SCALE = 2;
+  s.popularite = 50; s.dette = 3700;
+  FM.resolveChoice(s, plain({ popularite: 5, dette: 4 }), 0, rng);
+  assert.strictEqual(s.popularite, 60);
+  assert.ok(s.dette >= 3708);
+});
+
+test('a gauge limit reached by a card ends the game before monthly drift', () => {
+  const { FM, s, rng } = setup();
+  FM.MONTHS_PER_CARD = 1.5;
+  s.tension = 95;
+  const r = FM.resolveChoice(s, plain({ tension: 10 }), 0, rng);
+  assert.strictEqual(r.outcome.ending, 'emeutes');
 });

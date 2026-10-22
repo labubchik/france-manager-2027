@@ -15,7 +15,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
   function gaugeView(state, key) {
     if (key === 'dette') {
       var r = FM.debtRatio(state);
-      var f = FM.clamp((r - 100) / 40, 0, 1);
+      var f = FM.clamp((r - 100) / 32, 0, 1);
       return { fill: f, value: FM.ui.formatMd(state.dette) + ' · ' + r.toLocaleString('fr-FR') + ' %', risk: f };
     }
     var v = state[key];

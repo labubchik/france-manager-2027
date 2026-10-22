@@ -3,7 +3,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
 // Point de départ réel : dette Insee fin juin 2026 (3 595,5 Md€, 119 % du PIB) extrapolée à mai 2027, Brent ~110 $.
 FM.START = {
   dette: 3700, pib: 3085, baril: 110,
-  popularite: 50, tension: 50, danger: 35, assemblee: 45, tvLeft: 5,
+  popularite: 50, tension: 50, danger: 35, assemblee: 45, tvLeft: 3,
   wars: { golfe: 4, ukraine: 3, gaza: 3, liban: 2, taiwan: 1, soudan: 4, sahel: 2, pakafghan: 2 }
 };
 
@@ -20,7 +20,7 @@ FM.createGame = function (opts) {
   var state = {
     version: 1, seed: opts.seed, rngState: opts.seed >>> 0,
     candidateId: cand.id, camp: cand.camp,
-    month: 0, cardInMonth: 0,
+    month: 0,
     dette: FM.START.dette, pib: FM.START.pib, baril: FM.START.baril,
     popularite: FM.START.popularite, tension: FM.START.tension, danger: FM.START.danger,
     assemblee: FM.START.assemblee,

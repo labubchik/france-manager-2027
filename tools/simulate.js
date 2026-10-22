@@ -52,7 +52,7 @@ module.exports = { simulate };
 if (require.main === module) {
   const n = Number(process.argv[2]) || 1000;
   const r = simulate(n);
-  console.log('Parties :', r.n, '· médiane de cartes jouées :', r.medianCards, '(' + Math.round(r.medianCards / 3) + ' mois)');
+  console.log('Parties :', r.n, '· médiane de cartes jouées :', r.medianCards, '(' + Math.round(r.medianCards * globalThis.FM.MONTHS_PER_CARD) + ' mois)');
   for (const [k, v] of Object.entries(r.endings).sort((a, b) => b[1] - a[1])) {
     console.log('  ' + k.padEnd(12) + String(v).padStart(5) + '  ' + (100 * v / n).toFixed(1) + ' %');
   }

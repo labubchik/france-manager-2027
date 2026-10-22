@@ -7,7 +7,7 @@ FM.MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juille
 
 // month 0 = mai 2027.
 FM.dateLabel = function (month) {
-  var m = 4 + month;
+  var m = 4 + Math.floor(month + 1e-4);
   return FM.MONTH_NAMES[m % 12] + ' ' + (2027 + Math.floor(m / 12));
 };
 
@@ -19,6 +19,23 @@ function addEffects(a, b) {
       Object.keys(b[k]).forEach(function (kk) { out[k][kk] = (out[k][kk] || 0) + b[k][kk]; });
     } else {
       out[k] = (out[k] || 0) + b[k];
+    }
+  });
+  return out;
+}
+
+// Avec ~40 cartes par mandat, chaque carte pèse plus lourd que ce que son texte d'origine prévoyait.
+function scaleEffects(fx) {
+  if (!fx || FM.EFFECT_SCALE === 1) return fx;
+  var out = {};
+  Object.keys(fx).forEach(function (k) {
+    if (k === 'wars') {
+      out[k] = fx[k];
+    } else if (typeof fx[k] === 'object') {
+      out[k] = {};
+      Object.keys(fx[k]).forEach(function (kk) { out[k][kk] = fx[k][kk] * FM.EFFECT_SCALE; });
+    } else {
+      out[k] = fx[k] * FM.EFFECT_SCALE;
     }
   });
   return out;
@@ -76,20 +93,20 @@ FM.resolveChoice = function (state, card, choiceIndex, rng) {
 
   var fx = addEffects(choice.effects, choice.campMod && choice.campMod[state.camp]);
   if (card.post) scaleByCompetence(fx, FM.ministerAt(state, card.post));
-  FM.applyEffects(state, fx);
+  FM.applyEffects(state, scaleEffects(fx));
 
   if (choice.use493) {
     FM.applyEffects(state, { popularite: -8, tension: 6, assemblee: -5 });
-    FM.applyEffects(state, choice.vote && choice.vote.onPass);
+    FM.applyEffects(state, scaleEffects(choice.vote && choice.vote.onPass));
     state.lawFailStreak = 0;
     texts.push('Loi adoptée (49.3)');
   } else if (choice.vote) {
     if (state.assemblee + rng.int(-10, 10) >= choice.vote.difficulty) {
-      FM.applyEffects(state, choice.vote.onPass);
+      FM.applyEffects(state, scaleEffects(choice.vote.onPass));
       state.lawFailStreak = 0;
       texts.push('Loi adoptée');
     } else {
-      FM.applyEffects(state, choice.vote.onFail);
+      FM.applyEffects(state, scaleEffects(choice.vote.onFail));
       state.lawFailStreak++;
       if (state.lawFailStreak >= 3) FM.applyEffects(state, { popularite: -5 });
       texts.push('Loi rejetée');
@@ -132,11 +149,13 @@ FM.resolveChoice = function (state, card, choiceIndex, rng) {
   state.log.push(FM.dateLabel(state.month) + ' : ' + FM.renderWho(card, state).name + ' → ' + choice.label);
   if (state.log.length > 20) state.log.shift();
 
-  state.cardInMonth++;
-  if (state.cardInMonth >= FM.CARDS_PER_MONTH) {
-    state.cardInMonth = 0;
-    state.month++;
-    FM.monthTick(state, rng);
+  // Une jauge poussée à bout par la carte termine la partie avant que le temps ne l'adoucisse.
+  if (!FM.checkEnding(state)) {
+    // Le temps avance de MONTHS_PER_CARD ; le monde évolue une fois par mois entier écoulé.
+    var before = Math.floor(state.month + 1e-4);
+    state.month = Math.round((state.month + FM.MONTHS_PER_CARD) * 1e4) / 1e4;
+    if (Math.abs(state.month - Math.round(state.month)) < 1e-3) state.month = Math.round(state.month);
+    for (var m = before; m < Math.floor(state.month + 1e-4); m++) FM.monthTick(state, rng);
   }
 
   scheduleSystemCards(state);

@@ -11,7 +11,7 @@ FM.ENDINGS = {
   },
   faillite: {
     icon: '💸', title: 'Faillite',
-    text: 'La dette a dépassé 140 % du PIB. Les marchés ne prêtent plus un centime. Le FMI débarque à Bercy avec ses tableurs et confisque la carte bleue de l\'État.'
+    text: 'La dette a dépassé 132 % du PIB. Les marchés ne prêtent plus un centime. Le FMI débarque à Bercy avec ses tableurs et confisque la carte bleue de l\'État.'
   },
   destitution: {
     icon: '🚪', title: 'Destitué',

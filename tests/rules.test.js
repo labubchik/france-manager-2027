@@ -66,12 +66,12 @@ test('every ending has title and text', () => {
   }
 });
 
-test('faillite threshold is 140 percent', () => {
+test('faillite threshold is 132 percent', () => {
   const FM = load(...FILES);
   const s = newGame(FM);
-  s.dette = 1.4 * s.pib;
+  s.dette = 1.32 * s.pib;
   assert.strictEqual(FM.checkEnding(s), 'faillite');
-  s.dette = 1.39 * s.pib;
+  s.dette = 1.31 * s.pib;
   assert.strictEqual(FM.checkEnding(s), null);
 });
 
@@ -91,4 +91,18 @@ test('monthTick raises danger with hostile countries', () => {
   for (const c of Object.keys(s.relations)) s.relations[c] = -80;
   FM.monthTick(s, FM.createRng(3));
   assert.ok(s.danger > 33, String(s.danger));
+});
+
+test('default pace constants', () => {
+  const FM = load(...FILES);
+  assert.strictEqual(FM.MONTHS_PER_CARD, 1.5);
+  assert.ok(FM.EFFECT_SCALE > 1);
+});
+
+test('oil price settles instead of hitting the ceiling', () => {
+  const FM = load(...FILES);
+  const s = newGame(FM);
+  const rng = FM.createRng(11);
+  for (let i = 0; i < 60; i++) FM.monthTick(s, rng);
+  assert.ok(s.baril < 160, String(s.baril));
 });

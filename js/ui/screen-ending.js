@@ -7,7 +7,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
     var s = p.state;
     var e = FM.ENDINGS[p.endingId];
     var cand = FM.CANDIDATES.find(function (c) { return c.id === s.candidateId; });
-    var months = Math.min(s.month, FM.TERM_MONTHS);
+    var months = Math.min(Math.floor(s.month), FM.TERM_MONTHS);
     root.appendChild(h('div', { class: 'ending' }, [
       h('div', { class: 'ending-icon', 'aria-hidden': 'true' }, e.icon),
       h('p', { class: 'step' }, cand.name + ' · ' + FM.dateLabel(s.month)),

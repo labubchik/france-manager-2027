@@ -46,7 +46,7 @@ Le **fun** passe avant tout le reste. Ce n'est pas un simulateur économique sé
 - Le joueur choisit l'une des **deux réponses** (glisser à gauche ou à droite, ou cliquer). Certaines cartes spéciales en ont trois (voir allocutions et presse).
 - Avant de valider, le jeu **indique quelles jauges vont bouger**, sans dire dans quel sens, comme dans Reigns.
 - Les jauges bougent, puis la carte suivante arrive.
-- **Le temps** avance au fil des cartes : environ 1 mois toutes les 3 ou 4 cartes, soit 150 à 200 cartes pour un mandat complet. La date est toujours affichée.
+- **Le temps** avance au fil des cartes : 1 carte = 1 mois et demi, soit environ 40 cartes pour un mandat complet (décision de l'utilisateur du 22/10/2026, pour des parties plus courtes). Les effets des cartes sont amplifiés en conséquence. La date est toujours affichée.
 - Une carte peut **déclencher des suites** : un choix ajoute des cartes futures à la pile, par exemple « tu as envoyé les CRS → 2 mois plus tard, carte bavure ».
 
 ## 5. Les candidats jouables
@@ -103,7 +103,7 @@ Chaque fin a son écran, son texte drôle et un rappel du nombre de jours tenus.
 4. **Géopolitique** : des dirigeants étrangers avec des noms parodiques font des demandes (contrats, alliances, menaces, reconnaissance de la Palestine, ventes d'armes, droits de douane…). Le pays doit toujours être clairement indiqué, avec drapeau et nom du pays.
 5. **Guerres et crises mondiales** : basées sur les tensions réelles d'octobre 2026, elles peuvent escalader ou se calmer selon tes choix et le hasard (voir §11).
 6. **Presse** : une « Une de journal » rapporte une déclaration idiote d'un opposant ou d'un de tes ministres. Tu choisis : **recadrer**, **ignorer**, **contre-attaquer**, ou **virer** (ministre uniquement). *(Choix du concepteur : une carte de presse propose au maximum 3 réponses parmi ces 4, selon qu'il s'agit d'un ministre ou d'un opposant.)*
-7. **Allocutions TV** : une séquence spéciale en 2 ou 3 étapes (le ton, puis l'annonce). C'est une arme puissante mais limitée, avec environ 4 ou 5 allocutions par mandat. Elle est proposée après une grosse crise ou avant une grande loi.
+7. **Allocutions TV** : une séquence spéciale en 2 ou 3 étapes (le ton, puis l'annonce). C'est une arme puissante mais limitée, avec 3 allocutions par mandat. Elle est proposée après une grosse crise ou avant une grande loi.
 8. **Événements aléatoires du monde** : variations du baril, catastrophes, scandales, faits divers absurdes.
 9. **Immigration** : par exemple « une vague de X migrants arrive à Lampedusa / sur les côtes de la Manche / via la Méditerranée ». Le nombre X est tiré au hasard et peut grossir selon les guerres en cours (Soudan, Moyen-Orient, Sahel…). Les choix possibles : accueillir, répartir dans les régions, fermer les frontières, négocier avec l'UE ou le pays de départ, payer un pays tiers… Ils jouent sur la popularité (différemment selon le candidat choisi), la tension sociale, la dette et les relations avec l'UE, l'Italie et le Royaume-Uni.
 10. **Sujets brûlants de l'actualité française** *(demandé par l'utilisateur : « des trucs bien d'actualité »)*. Ils reviennent régulièrement, avec des cartes inspirées des débats réels de 2026 :
