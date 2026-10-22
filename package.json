@@ -1,0 +1,9 @@
+{
+  "name": "france-manager-2027",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jeu satirique : tu es Président de 2027 à 2032.",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\""
+  }
+}
