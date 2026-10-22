@@ -18,7 +18,7 @@ test('monthTick grows debt', () => {
   assert.strictEqual(s.dette, 3716);
 });
 
-test('faillite at 150 percent', () => {
+test('faillite at 150 percent (still above threshold)', () => {
   const FM = load(...FILES);
   const s = newGame(FM);
   s.dette = 1.5 * s.pib;
@@ -64,4 +64,31 @@ test('every ending has title and text', () => {
   for (const id of ['victoire', 'reelu', 'faillite', 'destitution', 'emeutes', 'accident', 'nucleaire']) {
     assert.ok(FM.ENDINGS[id] && FM.ENDINGS[id].title && FM.ENDINGS[id].text, id);
   }
+});
+
+test('faillite threshold is 140 percent', () => {
+  const FM = load(...FILES);
+  const s = newGame(FM);
+  s.dette = 1.4 * s.pib;
+  assert.strictEqual(FM.checkEnding(s), 'faillite');
+  s.dette = 1.39 * s.pib;
+  assert.strictEqual(FM.checkEnding(s), null);
+});
+
+test('monthTick pulls tension back toward normal', () => {
+  const FM = load(...FILES);
+  const s = newGame(FM);
+  s.baril = 100; s.tension = 90;
+  for (const w of Object.keys(s.wars)) s.wars[w] = 0;
+  FM.monthTick(s, FM.createRng(3));
+  assert.ok(s.tension < 90 && s.tension >= 85, String(s.tension));
+});
+
+test('monthTick raises danger with hostile countries', () => {
+  const FM = load(...FILES);
+  const s = newGame(FM);
+  s.danger = 30;
+  for (const c of Object.keys(s.relations)) s.relations[c] = -80;
+  FM.monthTick(s, FM.createRng(3));
+  assert.ok(s.danger > 33, String(s.danger));
 });
