@@ -107,9 +107,9 @@ FM.CARDS.push(
   { id: 'presse-mediapart', family: 'presse', post: 'premier', who: { minister: 'premier' },
     text: 'Mediapart révèle que votre Premier ministre a des comptes dans un paradis fiscal.',
     choices: [
-      { label: 'Le soutenir', effects: { popularite: -6, loyalty: { premier: 15 } } },
+      { label: 'Soutenir', effects: { popularite: -6, loyalty: { premier: 15 } } },
       { label: 'Exiger des explications', effects: { popularite: -1, loyalty: { premier: -10 } } },
-      { label: 'Le virer', fire: 'premier', effects: { popularite: 4, assemblee: -4 } }
+      { label: 'Virer', fire: 'premier', effects: { popularite: 4, assemblee: -4 } }
     ] },
   { id: 'presse-zemoule', family: 'presse', who: { name: 'Éric Zémoule', role: 'Polémiste', portrait: '📚' }, when: { notCandidate: 'zemoule' },
     text: 'Dans son 14e livre, il annonce « le suicide de la France sous votre mandat ».',

@@ -210,7 +210,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
         var loy = state.cabinet[post].loyalty;
         return [
           h('span', { 'aria-hidden': 'true' }, m.portrait),
-          h('div', { class: 'grow' }, [m.name, h('small', {}, FM.POST_LABELS[post] + ' · ' + FM.TRAIT_LABELS[m.trait])]),
+          h('div', { class: 'grow' }, [m.name, h('small', {}, FM.POST_LABELS[post] + ' · ' + m.party + ' · ' + FM.TRAIT_LABELS[m.trait])]),
           h('div', { class: 'mini-bar', title: 'Loyauté ' + loy }, h('i', { style: 'width:' + loy + '%;background:' + riskColor(1 - loy / 100) }))
         ];
       });

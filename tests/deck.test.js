@@ -102,3 +102,11 @@ test('when.notCandidate filters', () => {
   assert.strictEqual(FM.isEligible(card('n', { when: { notCandidate: 'flipper' } }), s), false);
   assert.strictEqual(FM.isEligible(card('n', { when: { notCandidate: 'aichonchon' } }), s), true);
 });
+
+test('when.ministerCamp filters on the camp of the minister holding the post', () => {
+  const { FM, s } = setup([], { travail: 'menagerie' }); // RN
+  const c = card('reg', { post: 'travail', when: { ministerCamp: ['gauche', 'extreme-gauche', 'centre'] } });
+  assert.strictEqual(FM.isEligible(c, s), false);
+  s.cabinet.travail.ministerId = 'bergerie'; // gauche
+  assert.strictEqual(FM.isEligible(c, s), true);
+});

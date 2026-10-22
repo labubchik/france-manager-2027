@@ -19,7 +19,7 @@ function stateValue(state, key) {
 }
 
 // Conditions d'un bloc `when` (sans `once` ni anti-répétition).
-function matches(w, state) {
+function matches(w, state, card) {
   if (!w) return true;
   if (w.minMonth !== undefined && state.month < w.minMonth) return false;
   if (w.maxMonth !== undefined && state.month > w.maxMonth) return false;
@@ -27,6 +27,10 @@ function matches(w, state) {
   if (w.notFlags && w.notFlags.some(function (f) { return state.flags[f]; })) return false;
   if (w.candidate && w.candidate !== state.candidateId) return false;
   if (w.notCandidate && w.notCandidate === state.candidateId) return false;
+  if (w.ministerCamp && card && card.post) {
+    var holder = FM.ministerAt(state, card.post);
+    if (!holder || w.ministerCamp.indexOf(holder.camp) === -1) return false;
+  }
   if (w.camp && w.camp.indexOf(state.camp) === -1) return false;
   if (w.tvLeft && state.tvLeft <= 0) return false;
   if (w.war && Object.keys(w.war).some(function (k) { return state.wars[k] < w.war[k]; })) return false;
@@ -34,7 +38,7 @@ function matches(w, state) {
   if (w.max && Object.keys(w.max).some(function (k) { return stateValue(state, k) > w.max[k]; })) return false;
   if (w.relationBelow && Object.keys(w.relationBelow).some(function (k) { return state.relations[k] > w.relationBelow[k]; })) return false;
   if (w.relationAbove && Object.keys(w.relationAbove).some(function (k) { return state.relations[k] < w.relationAbove[k]; })) return false;
-  if (w.any && !w.any.some(function (sub) { return matches(sub, state); })) return false;
+  if (w.any && !w.any.some(function (sub) { return matches(sub, state, card); })) return false;
   return true;
 }
 
@@ -43,7 +47,7 @@ FM.isEligible = function (card, state, ignoreRecent) {
   if (card.once && state.seen[card.id]) return false;
   if (!ignoreRecent && state.recent.indexOf(card.id) !== -1) return false;
   if (card.choices.some(function (ch) { return ch.tv; }) && state.tvLeft <= 0) return false;
-  return matches(card.when, state);
+  return matches(card.when, state, card);
 };
 
 FM.cardWeight = function (card, state) {

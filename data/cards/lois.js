@@ -2,14 +2,14 @@ var FM = (globalThis.FM = globalThis.FM || {});
 
 // Lois : on porte (vote incertain), on passe en force (49.3) ou on enterre.
 FM.CARDS.push(
-  { id: 'lois-superprofits', family: 'lois', post: 'economie', who: { minister: 'economie' },
+  { id: 'lois-superprofits', family: 'lois', post: 'economie', who: { minister: 'economie' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre', 'extreme-droite'] },
     text: 'Je propose une taxe exceptionnelle sur les superprofits des pétroliers et des banques.',
     choices: [
       { label: 'Porter la loi', vote: { difficulty: 50, onPass: { dette: -10, popularite: 5 }, onFail: { popularite: -2 } } },
       { label: '49.3', use493: true, vote: { onPass: { dette: -10, popularite: 5 } } },
       { label: 'Enterrer', effects: { loyalty: { economie: -8 } } }
     ] },
-  { id: 'lois-immigration', family: 'lois', post: 'interieur', who: { minister: 'interieur' },
+  { id: 'lois-immigration', family: 'lois', post: 'interieur', who: { minister: 'interieur' }, when: { ministerCamp: ['centre', 'droite', 'extreme-droite'] },
     text: 'Ma loi immigration : quotas, fin de l\'aide médicale d\'État, expulsions accélérées.',
     choices: [
       { label: 'Porter la loi', setFlags: ['grande_loi'], vote: { difficulty: 55, onPass: { popularite: 3, tension: 4 }, onFail: { popularite: -3 } },
@@ -31,14 +31,14 @@ FM.CARDS.push(
       { label: 'Porter la loi', setFlags: ['grande_loi'], vote: { difficulty: 50, onPass: { assemblee: -5, popularite: 4 }, onFail: { popularite: -2 } } },
       { label: 'Enterrer', effects: { assemblee: -3 } }
     ] },
-  { id: 'lois-smic', family: 'lois', post: 'travail', who: { minister: 'travail' },
+  { id: 'lois-smic', family: 'lois', post: 'travail', who: { minister: 'travail' }, when: { ministerCamp: ['extreme-gauche', 'gauche'] },
     text: 'Je veux augmenter le SMIC de 10 %. Le patronat hurle déjà.',
     choices: [
       { label: 'Porter la loi', vote: { difficulty: 55, onPass: { popularite: 7, tension: -6, dette: 3 }, onFail: { popularite: -2, tension: 3 } }, campMod: { droite: { popularite: -3 } } },
       { label: 'Coup de pouce de 2 %', effects: { popularite: 1, tension: -2 } },
       { label: 'Enterrer', effects: { tension: 5, loyalty: { travail: -10 } } }
     ] },
-  { id: 'lois-assurance-chomage', family: 'lois', post: 'travail', who: { minister: 'travail' },
+  { id: 'lois-assurance-chomage', family: 'lois', post: 'travail', who: { minister: 'travail' }, when: { ministerCamp: ['centre', 'droite'] },
     text: 'Réforme de l\'assurance chômage : on réduit la durée d\'indemnisation de 25 %.',
     choices: [
       { label: 'Porter la loi', vote: { difficulty: 50, onPass: { dette: -8, tension: 7, popularite: -3 }, onFail: { popularite: -2 } }, campMod: { gauche: { popularite: -5 } } },
@@ -51,7 +51,7 @@ FM.CARDS.push(
       { label: 'Porter la loi', setFlags: ['grande_loi'], vote: { difficulty: 60, onPass: { popularite: 6, tension: -5, assemblee: -4 }, onFail: { popularite: -1, tension: 3 } } },
       { label: 'Enterrer', effects: { popularite: -3, tension: 4 } }
     ] },
-  { id: 'lois-ecologie-pesticides', family: 'lois', post: 'ecologie', who: { minister: 'ecologie' },
+  { id: 'lois-ecologie-pesticides', family: 'lois', post: 'ecologie', who: { minister: 'ecologie' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre'] },
     text: 'Je veux interdire le glyphosate pour de bon. Les agriculteurs vont sortir les tracteurs.',
     choices: [
       { label: 'Porter la loi', vote: { difficulty: 55, onPass: { popularite: 3, tension: 6 }, onFail: { popularite: -2 } }, campMod: { gauche: { popularite: 3 }, droite: { popularite: -4 } } },
@@ -88,7 +88,7 @@ FM.CARDS.push(
     text: 'Je propose un service militaire volontaire de 10 mois pour les 18-25 ans.',
     choices: [
       { label: 'Porter la loi', vote: { difficulty: 50, onPass: { dette: 3, danger: -3, popularite: 2 }, onFail: { popularite: -1 } } },
-      { label: 'Le rendre obligatoire', setFlags: ['grande_loi'], vote: { difficulty: 65, onPass: { dette: 6, danger: -5, tension: 6 }, onFail: { popularite: -3 } } },
+      { label: 'Service obligatoire', setFlags: ['grande_loi'], vote: { difficulty: 65, onPass: { dette: 6, danger: -5, tension: 6 }, onFail: { popularite: -3 } } },
       { label: 'Enterrer', effects: { loyalty: { armees: -8 } } }
     ] },
   { id: 'lois-audiovisuel', family: 'lois', who: { name: 'Delphine Ernotte-Coupée', role: 'Présidente de France Télévisions', portrait: '📺' },

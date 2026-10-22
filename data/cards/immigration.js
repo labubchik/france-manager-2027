@@ -33,13 +33,13 @@ var FM = (globalThis.FM = globalThis.FM || {});
         { label: 'Accueillir 5 000', effects: { dette: 0.5, tension: 1 } },
         { label: 'Financer des camps sur place', effects: { dette: 1.5 }, campMod: { droite: { popularite: 2 } } }
       ] },
-    { id: 'immigration-tunisie', family: 'immigration', post: 'interieur', who: { minister: 'interieur' },
+    { id: 'immigration-tunisie', family: 'immigration', post: 'interieur', who: { minister: 'interieur' }, when: { ministerCamp: ['centre', 'droite', 'extreme-droite'] },
       text: 'On peut payer la Tunisie 1 milliard pour qu\'elle retienne les départs. Comme l\'a fait l\'Italie.',
       choices: [
         { label: 'Payer un pays tiers', effects: { dette: 1, tension: -2 }, campMod: { gauche: { popularite: -5 }, droite: { popularite: 3 } } },
         { label: 'Refuser', effects: { tension: 2 }, campMod: { 'extreme-droite': { popularite: -4 } } }
       ] },
-    { id: 'immigration-regularisation', family: 'immigration', post: 'travail', who: { minister: 'travail' },
+    { id: 'immigration-regularisation', family: 'immigration', post: 'travail', who: { minister: 'travail' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre'] },
       text: 'Les restaurants et le BTP manquent de bras. Je propose de régulariser les travailleurs sans papiers.',
       choices: [
         { label: 'Régulariser', effects: { dette: -2, tension: 2 }, campMod: { gauche: { popularite: 4 }, 'extreme-droite': { popularite: -8 }, droite: { popularite: -5 } } },

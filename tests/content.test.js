@@ -102,3 +102,24 @@ test('every nuclear card has a de-escalation choice', () => {
 test('Aichonchon present', () => {
   assert.ok(FM.CANDIDATES.some(c => c.name === 'Jean-Luc Aichonchon'));
 });
+
+test('every minister has a party label', () => {
+  for (const m of FM.MINISTERS) assert.ok(m.party && m.party.length > 1, m.id);
+});
+
+test('minister cards use gender-neutral choice labels', () => {
+  for (const c of FM.CARDS.filter(x => x.who && x.who.minister)) {
+    for (const ch of c.choices) assert.ok(!/^(Le|La) /.test(ch.label), c.id + ': ' + ch.label);
+  }
+});
+
+test('partisan proposals are restricted to coherent camps', () => {
+  const must = ['services-classes', 'services-fonctionnaires', 'services-privatisation', 'services-cantines',
+    'lois-superprofits', 'lois-immigration', 'lois-smic', 'lois-assurance-chomage', 'lois-ecologie-pesticides',
+    'hot-semaine-4-jours', 'immigration-regularisation', 'immigration-tunisie'];
+  for (const id of must) {
+    const c = FM.cardById(id);
+    assert.ok(c.post && c.when && Array.isArray(c.when.ministerCamp), id);
+    assert.ok(FM.MINISTERS.some(m => m.post === c.post && c.when.ministerCamp.includes(m.camp)), id + ' unreachable');
+  }
+});

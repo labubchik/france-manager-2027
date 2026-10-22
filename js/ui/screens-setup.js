@@ -57,7 +57,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
       } }, [
         h('span', { class: 'pick-portrait' }, m.portrait),
         h('span', { class: 'pick-name' }, m.name),
-        h('span', { class: 'pick-meta' }, CAMP_LABELS[m.camp]),
+        h('span', { class: 'pick-meta' }, m.party + ' · ' + CAMP_LABELS[m.camp]),
         h('span', { class: 'pick-trait' }, FM.TRAIT_LABELS[m.trait]),
         h('span', { class: 'pick-stars', 'aria-label': 'Compétence ' + m.competence + ' sur 5' }, '★'.repeat(m.competence) + '☆'.repeat(5 - m.competence))
       ]);

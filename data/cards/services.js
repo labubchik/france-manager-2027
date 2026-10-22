@@ -8,7 +8,7 @@ FM.CARDS.push(
       { label: 'Débloquer 3 milliards', effects: { dette: 3, popularite: 5, tension: -4 } },
       { label: 'Pas un sou', effects: { tension: 7, popularite: -5 } }
     ] },
-  { id: 'services-classes', family: 'services', post: 'education', who: { minister: 'education' },
+  { id: 'services-classes', family: 'services', post: 'education', who: { minister: 'education' }, when: { ministerCamp: ['centre', 'droite', 'extreme-droite'] },
     text: 'Je propose de fermer 3 000 classes : il y a moins d\'enfants. Économie : 1 milliard.',
     choices: [
       { label: 'Fermer les classes', effects: { dette: -1, tension: 6, popularite: -5 } },
@@ -33,7 +33,7 @@ FM.CARDS.push(
       { label: 'Peines alternatives', effects: { popularite: -3, tension: 2 }, campMod: { droite: { popularite: -4 }, 'extreme-droite': { popularite: -6 } } }
     ] },
   { id: 'services-fonctionnaires', family: 'services', post: 'economie', who: { minister: 'economie' },
-    when: { trait: 'technocrate' },
+    when: { ministerCamp: ['centre', 'droite'], trait: 'technocrate' },
     text: 'Mes tableurs sont formels : supprimer 100 000 postes de fonctionnaires économise 5 milliards par an.',
     choices: [
       { label: 'Supprimer les postes', effects: { dette: -15, tension: 12, popularite: -7 } },
@@ -51,7 +51,7 @@ FM.CARDS.push(
       { label: 'Recruter 1 500 magistrats', effects: { dette: 2, popularite: 3, danger: -1 } },
       { label: 'Juger plus vite (IA ?)', effects: { popularite: -2, tension: 2 } }
     ] },
-  { id: 'services-cantines', family: 'services', post: 'education', who: { minister: 'education' },
+  { id: 'services-cantines', family: 'services', post: 'education', who: { minister: 'education' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre'] },
     text: 'Proposition : cantine gratuite pour tous les écoliers. Coût : 3 milliards par an.',
     choices: [
       { label: 'Cantine gratuite', effects: { dette: 9, popularite: 6, tension: -4 }, campMod: { droite: { popularite: -3 } } },
@@ -69,7 +69,7 @@ FM.CARDS.push(
       { label: 'Financer', effects: { dette: 14, popularite: 4, tension: -2 } },
       { label: 'Reporter encore', effects: { popularite: -3, tension: 2 } }
     ] },
-  { id: 'services-privatisation', family: 'services', post: 'economie', who: { minister: 'economie' },
+  { id: 'services-privatisation', family: 'services', post: 'economie', who: { minister: 'economie' }, when: { ministerCamp: ['centre', 'droite'] },
     text: 'On pourrait vendre les parts de l\'État dans la Française des Jeux et les aéroports. 10 milliards d\'un coup !',
     choices: [
       { label: 'Tout vendre', effects: { dette: -10, popularite: -5, tension: 5 }, campMod: { droite: { popularite: 4 } } },

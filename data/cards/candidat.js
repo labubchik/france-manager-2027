@@ -19,7 +19,7 @@ FM.CARDS.push(
     text: 'Votre promesse phare : TVA à 0 % sur 100 produits de première nécessité. Coût : 12 milliards.',
     choices: [
       { label: 'Tenir la promesse', effects: { dette: 12, popularite: 7, tension: -4 } },
-      { label: 'La réduire de moitié', effects: { dette: 6, popularite: 2 } }
+      { label: 'Promesse divisée par deux', effects: { dette: 6, popularite: 2 } }
     ] },
   { id: 'cand-lepain-chats', family: 'candidat', when: { candidate: 'lepain' }, who: { name: 'Votre chargé de com', role: 'Élysée', portrait: '🐈' },
     text: 'Une vidéo de vous et vos chats à l\'Élysée ferait exploser les compteurs. On tourne ?',

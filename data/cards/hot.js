@@ -116,7 +116,7 @@ FM.CARDS.push(
       { label: 'Plan de reconstruction', effects: { dette: 1, popularite: 3, tension: -3 } },
       { label: 'Les assurances paieront', effects: { popularite: -3, tension: 3 } }
     ] },
-  { id: 'hot-semaine-4-jours', family: 'hot', post: 'travail', who: { minister: 'travail' },
+  { id: 'hot-semaine-4-jours', family: 'hot', post: 'travail', who: { minister: 'travail' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre'] },
     text: 'Et si on passait à la semaine de 4 jours dans la fonction publique ?',
     choices: [
       { label: 'Expérimenter', effects: { popularite: 4, tension: -3, dette: 1 }, campMod: { droite: { popularite: -3 } } },

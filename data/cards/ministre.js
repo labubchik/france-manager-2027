@@ -6,9 +6,9 @@ FM.CARDS.push(
     when: { trait: 'ambitieux', minMonth: 6 },
     text: 'On me rapporte que votre Premier ministre dîne chaque semaine avec les chefs de l\'opposition.',
     choices: [
-      { label: 'Le convoquer', effects: { loyalty: { premier: -15 }, danger: -2 } },
+      { label: 'Convoquer', effects: { loyalty: { premier: -15 }, danger: -2 } },
       { label: 'Faire semblant de rien', effects: { danger: 4, loyalty: { premier: 5 } } },
-      { label: 'Le virer', fire: 'premier', effects: { assemblee: -5, popularite: 1 } }
+      { label: 'Virer', fire: 'premier', effects: { assemblee: -5, popularite: 1 } }
     ] },
   { id: 'ministre-ambition-interieur', family: 'ministre', post: 'interieur', who: { minister: 'interieur' },
     when: { trait: 'ambitieux' },
@@ -19,25 +19,25 @@ FM.CARDS.push(
     ] },
   { id: 'ministre-loyal-sacrifice', family: 'ministre', post: 'travail', who: { minister: 'travail' },
     when: { trait: 'loyal' },
-    text: 'Monsieur le Président, si un fusible doit sauter pour calmer la rue, je suis prêt.',
+    text: 'Monsieur le Président, si un fusible doit sauter pour calmer la rue, je me sacrifie.',
     choices: [
       { label: 'Accepter sa démission', fire: 'travail', effects: { tension: -6, popularite: 2 } },
-      { label: 'Le garder', effects: { loyalty: { travail: 15 } } },
-      { label: 'Le décorer', effects: { loyalty: { travail: 20 }, popularite: -1 } }
+      { label: 'Garder', effects: { loyalty: { travail: 15 } } },
+      { label: 'Décorer', effects: { loyalty: { travail: 20 }, popularite: -1 } }
     ] },
   { id: 'ministre-technocrate-rapport', family: 'ministre', post: 'economie', who: { minister: 'economie' },
     when: { trait: 'technocrate' },
     text: 'J\'ai rédigé un rapport de 900 pages sur la dette. Conclusion : il faut « des efforts ».',
     choices: [
       { label: 'Appliquer le plan', effects: { dette: -8, tension: 6, popularite: -3 } },
-      { label: 'Le ranger dans un tiroir', effects: { loyalty: { economie: -8 } } }
+      { label: 'Ranger au placard', effects: { loyalty: { economie: -8 } } }
     ] },
   { id: 'ministre-populiste-promesse', family: 'ministre', post: 'travail', who: { minister: 'travail' },
     when: { trait: 'populiste' },
     text: 'J\'ai promis à la télé la retraite à 60 ans pour tous. Vous me suivez, hein ?',
     choices: [
-      { label: 'Le désavouer', effects: { popularite: -2, loyalty: { travail: -15 } } },
-      { label: 'Le suivre', effects: { popularite: 5, dette: 12, assemblee: -3 } }
+      { label: 'Désavouer', effects: { popularite: -2, loyalty: { travail: -15 } } },
+      { label: 'Suivre', effects: { popularite: 5, dette: 12, assemblee: -3 } }
     ] },
   { id: 'ministre-guerre-des-egos', family: 'ministre', post: 'premier', who: { minister: 'premier' },
     text: 'Votre Premier ministre et votre ministre de l\'Économie ne se parlent plus. Il faut trancher.',
@@ -56,14 +56,14 @@ FM.CARDS.push(
   { id: 'ministre-cabinet-fete', family: 'ministre', post: 'sante', who: { minister: 'sante' },
     text: 'Fuite d\'une vidéo : votre ministre fête son anniversaire dans un ministère, champagne et DJ.',
     choices: [
-      { label: 'Le défendre', effects: { popularite: -4, loyalty: { sante: 10 } } },
+      { label: 'Défendre', effects: { popularite: -4, loyalty: { sante: 10 } } },
       { label: 'Exiger des excuses', effects: { popularite: -1, loyalty: { sante: -8 } } },
-      { label: 'Le virer', fire: 'sante', effects: { popularite: 3 } }
+      { label: 'Virer', fire: 'sante', effects: { popularite: 3 } }
     ] },
   { id: 'ministre-trahison', family: 'ministre', system: true, who: { minister: '$betrayal' },
     text: 'Votre ministre a fuité au Monde tous les secrets du Conseil des ministres et menace de démissionner avec fracas.',
     choices: [
-      { label: 'Le virer', fire: '$betrayal', effects: { popularite: -2, assemblee: -4, danger: -6 } },
+      { label: 'Virer', fire: '$betrayal', effects: { popularite: -2, assemblee: -4, danger: -6 } },
       { label: 'Pardonner', effects: { popularite: -3, danger: 3 } },
       { label: 'Acheter sa loyauté', effects: { dette: 1, danger: -3 } }
     ] }
