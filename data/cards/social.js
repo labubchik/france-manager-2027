@@ -63,8 +63,8 @@ FM.CARDS.push(
     when: { flags: ['reforme_retraites'] },
     text: '2 millions de personnes dans la rue contre votre réforme des retraites. L\'intersyndicale exige le retrait.',
     choices: [
-      { label: 'Tenir bon', effects: { tension: 12, popularite: -5, dette: -5 } },
-      { label: 'Retirer la réforme', effects: { tension: -12, popularite: -2, dette: 8, assemblee: -4 }, clearFlags: ['reforme_retraites'] }
+      { label: 'Tenir bon', effects: { tension: 12, popularite: -5 } },
+      { label: 'Retirer la réforme', effects: { tension: -12, popularite: -2, deficit: 10, assemblee: -4 }, clearFlags: ['reforme_retraites'] }
     ] },
   { id: 'social-pecheurs', family: 'social', who: { name: 'Un patron pêcheur breton', role: 'Comité des pêches', portrait: '🎣' },
     text: 'Les pêcheurs bloquent les ports : Bruxelles réduit encore les quotas de sole.',

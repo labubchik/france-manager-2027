@@ -3,6 +3,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
 // Point de départ réel : dette Insee fin juin 2026 (3 595,5 Md€, 119 % du PIB) extrapolée à mai 2027, Brent ~110 $.
 FM.START = {
   dette: 3700, pib: 3085, baril: 110,
+  deficit: 160, // déficit public structurel, Md€ par an (~5 % du PIB)
   popularite: 50, tension: 50, danger: 35, assemblee: 45, tvLeft: 3,
   wars: { golfe: 4, ukraine: 3, gaza: 3, liban: 2, taiwan: 1, soudan: 4, sahel: 2, pakafghan: 2 }
 };
@@ -21,7 +22,7 @@ FM.createGame = function (opts) {
     version: 1, seed: opts.seed, rngState: opts.seed >>> 0,
     candidateId: cand.id, camp: cand.camp,
     month: 0,
-    dette: FM.START.dette, pib: FM.START.pib, baril: FM.START.baril,
+    dette: FM.START.dette, pib: FM.START.pib, baril: FM.START.baril, deficit: FM.START.deficit,
     popularite: FM.START.popularite, tension: FM.START.tension, danger: FM.START.danger,
     assemblee: FM.START.assemblee,
     relations: relations,
@@ -49,6 +50,7 @@ FM.applyEffects = function (state, fx) {
   var clamp = FM.clamp;
   if (!fx) return state;
   if (fx.dette) state.dette = Math.round((state.dette + fx.dette) * 10) / 10;
+  if (fx.deficit) state.deficit = Math.round((state.deficit + fx.deficit) * 10) / 10;
   FM.GAUGES.forEach(function (g) { if (fx[g]) state[g] = Math.round(clamp(state[g] + fx[g], 0, 100)); });
   if (fx.baril) state.baril = clamp(state.baril + fx.baril, 40, 200);
   if (fx.relations) Object.keys(fx.relations).forEach(function (c) {

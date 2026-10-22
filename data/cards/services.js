@@ -36,8 +36,8 @@ FM.CARDS.push(
     when: { ministerCamp: ['centre', 'droite'], trait: 'technocrate' },
     text: 'Mes tableurs sont formels : supprimer 100 000 postes de fonctionnaires économise 5 milliards par an.',
     choices: [
-      { label: 'Supprimer les postes', effects: { dette: -15, tension: 12, popularite: -7 } },
-      { label: 'Geler les embauches', effects: { dette: -5, tension: 4, popularite: -2 } }
+      { label: 'Supprimer les postes', effects: { deficit: -5, tension: 12, popularite: -7 } },
+      { label: 'Geler les embauches', effects: { deficit: -2, tension: 4, popularite: -2 } }
     ] },
   { id: 'services-poste', family: 'services', who: { name: 'Un maire rural', role: 'Association des maires ruraux', portrait: '🏤' },
     text: 'La Poste ferme le dernier bureau du canton. Mes administrés font 40 km pour un recommandé.',
@@ -54,7 +54,7 @@ FM.CARDS.push(
   { id: 'services-cantines', family: 'services', post: 'education', who: { minister: 'education' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre'] },
     text: 'Proposition : cantine gratuite pour tous les écoliers. Coût : 3 milliards par an.',
     choices: [
-      { label: 'Cantine gratuite', effects: { dette: 9, popularite: 6, tension: -4 }, campMod: { droite: { popularite: -3 } } },
+      { label: 'Cantine gratuite', effects: { deficit: 3, popularite: 6, tension: -4 }, campMod: { droite: { popularite: -3 } } },
       { label: 'Trop cher', effects: { popularite: -2 } }
     ] },
   { id: 'services-psychiatrie', family: 'services', post: 'sante', who: { minister: 'sante' },
@@ -84,7 +84,7 @@ FM.CARDS.push(
   { id: 'services-armee-budget', family: 'services', post: 'armees', who: { minister: 'armees' },
     text: 'L\'armée réclame 5 milliards de plus par an. « Avec ce qui se passe dans le monde… »',
     choices: [
-      { label: 'Accorder', effects: { dette: 5, danger: -5, popularite: 1 } },
+      { label: 'Accorder', effects: { deficit: 5, danger: -5, popularite: 1 } },
       { label: 'Refuser', effects: { danger: 4, loyalty: { armees: -12 } } }
     ] }
 );

@@ -16,10 +16,10 @@ FM.CARDS.push(
     ] },
   { id: 'hot-retraites-64', family: 'hot', post: 'premier', who: { minister: 'premier' },
     when: { notFlags: ['reforme_retraites'] },
-    text: 'Le Conseil d\'orientation des retraites prévoit 15 milliards de déficit. Il faut une réforme.',
+    text: 'Les retraites filent vers 15 Md€ de déficit. Passer à 65 ans rapporterait ~10 Md€ par an ; revenir à 62 en coûterait ~15.',
     choices: [
-      { label: 'Retraite à 65 ans', effects: { dette: -12, tension: 14, popularite: -8 }, setFlags: ['reforme_retraites'] },
-      { label: 'Retour à 62 ans', effects: { dette: 15, tension: -10, popularite: 6 }, campMod: { droite: { popularite: -5 } } },
+      { label: 'Retraite à 65 ans', effects: { deficit: -10, tension: 14, popularite: -8 }, setFlags: ['reforme_retraites'] },
+      { label: 'Retour à 62 ans', effects: { deficit: 15, tension: -10, popularite: 6 }, campMod: { droite: { popularite: -5 } } },
       { label: 'Conférence sociale', effects: { tension: -2, popularite: -1 } }
     ] },
   { id: 'hot-essence-2e', family: 'hot', who: { name: 'Une infirmière de la Creuse', role: '80 km de trajet par jour', portrait: '⛽' },
@@ -123,9 +123,9 @@ FM.CARDS.push(
       { label: 'Travailler plus', effects: { popularite: -3, tension: 4, dette: -2 } }
     ] },
   { id: 'hot-taxe-zucman', family: 'hot', who: { name: 'Gabriel Zucmanne', role: 'Économiste star', portrait: '🧑‍🏫' },
-    text: 'Un impôt de 2 % sur les patrimoines au-dessus de 100 millions rapporterait 20 milliards.',
+    text: 'Un impôt de 2 % sur les patrimoines de plus de 100 millions : de 5 à 20 Md€ par an selon les études, et 1 800 foyers concernés.',
     choices: [
-      { label: 'Taxe Zucmanne', effects: { dette: -15, popularite: 6, tension: -3 }, campMod: { droite: { popularite: -6 }, centre: { popularite: -3 } }, followups: [{ cardId: 'hot-exil-fiscal', inCards: 8 }] },
+      { label: 'Taxe Zucmanne', effects: { deficit: -10, popularite: 6, tension: -3 }, campMod: { droite: { popularite: -6 }, centre: { popularite: -3 } }, followups: [{ cardId: 'hot-exil-fiscal', inCards: 8 }] },
       { label: 'Ça ferait fuir les riches', effects: { popularite: -4, tension: 3 } }
     ] },
   { id: 'hot-exil-fiscal', family: 'hot', system: true, who: { name: 'Bernard Arnault-de-Rire', role: 'Homme le plus riche de France', portrait: '👜' },

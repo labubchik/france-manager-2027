@@ -17,7 +17,9 @@ var FM = (globalThis.FM = globalThis.FM || {});
         h('div', {}, [h('b', {}, months + ' mois'), 'tenus sur 60']),
         h('div', {}, [h('b', {}, FM.ui.formatMd(s.dette)), FM.debtRatio(s).toLocaleString('fr-FR') + ' % du PIB']),
         h('div', {}, [h('b', {}, s.popularite + ' / 100'), 'popularité']),
-        h('div', {}, [h('b', {}, s.tension + ' / 100'), 'tension sociale'])
+        h('div', {}, [h('b', {}, s.tension + ' / 100'), 'tension sociale']),
+        h('div', {}, [h('b', {}, Math.round(s.deficit) + ' Md€/an'), 'déficit final (160 au départ)']),
+        h('div', {}, [h('b', {}, s.danger + ' / 100'), 'danger'])
       ]),
       h('h3', {}, 'Vos derniers arbitrages'),
       h('ul', { class: 'ending-log' }, s.log.slice(-5).map(function (l) { return h('li', {}, l); })),

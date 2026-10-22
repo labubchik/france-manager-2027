@@ -181,6 +181,7 @@ test('betrayal alone never ends the game', () => {
 test('default pace: about 40 cards make a full term', () => {
   const { FM, s, rng } = setup();
   FM.MONTHS_PER_CARD = 1.5;
+  s.dette = 3000; // pas de faillite : on ne teste que le rythme
   let r;
   for (let i = 0; i < 40; i++) r = FM.resolveChoice(s, plain({}), 1, rng);
   assert.strictEqual(s.month, 60);
@@ -215,4 +216,18 @@ test('a gauge limit reached by a card ends the game before monthly drift', () =>
   s.tension = 95;
   const r = FM.resolveChoice(s, plain({ tension: 10 }), 0, rng);
   assert.strictEqual(r.outcome.ending, 'emeutes');
+});
+
+test('real deficit estimates are not amplified by EFFECT_SCALE', () => {
+  const { FM, s, rng } = setup();
+  FM.EFFECT_SCALE = 2.2;
+  s.deficit = 160;
+  FM.resolveChoice(s, plain({ deficit: -10 }), 0, rng);
+  assert.strictEqual(s.deficit, 150);
+});
+
+test('deficit changes show as a big debt dot in the preview', () => {
+  const { FM } = setup();
+  assert.strictEqual(FM.affectedGauges({ effects: { deficit: -5 } }).dette, 2);
+  assert.strictEqual(FM.affectedGauges({ effects: { deficit: 1 } }).dette, 1);
 });

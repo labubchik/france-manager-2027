@@ -37,7 +37,7 @@ FM.CARDS.push(
     text: 'J\'ai promis à la télé la retraite à 60 ans pour tous. Vous me suivez, hein ?',
     choices: [
       { label: 'Désavouer', effects: { popularite: -2, loyalty: { travail: -15 } } },
-      { label: 'Suivre', effects: { popularite: 5, dette: 12, assemblee: -3 } }
+      { label: 'Suivre', effects: { popularite: 5, deficit: 25, assemblee: -3 } }
     ] },
   { id: 'ministre-guerre-des-egos', family: 'ministre', post: 'premier', who: { minister: 'premier' },
     text: 'Votre Premier ministre et votre ministre de l\'Économie ne se parlent plus. Il faut trancher.',

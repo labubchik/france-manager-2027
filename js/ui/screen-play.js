@@ -58,8 +58,10 @@ var FM = (globalThis.FM = globalThis.FM || {});
 
     var dateEl = h('b');
     var barilEl = h('span');
+    var deficitEl = h('span', { title: 'Déficit public annuel' });
     var status = h('div', { class: 'status' }, [
       h('span', {}, ['📅 ', dateEl]),
+      deficitEl,
       barilEl,
       h('button', { class: 'icon-btn', onclick: openPanel, 'aria-label': 'Ouvrir le tableau de bord' }, '☰ État')
     ]);
@@ -98,6 +100,10 @@ var FM = (globalThis.FM = globalThis.FM || {});
       });
       dateEl.textContent = FM.dateLabel(state.month);
       barilEl.textContent = '🛢️ ' + Math.round(state.baril) + ' $';
+      deficitEl.textContent = state.deficit > 0
+        ? '📉 ' + Math.round(state.deficit) + ' Md€/an'
+        : '📈 +' + Math.round(-state.deficit) + ' Md€/an';
+      deficitEl.style.color = state.deficit > 0 ? 'var(--danger)' : 'var(--good)';
     }
 
     function render() {
@@ -232,6 +238,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
         h('div', {}, rows([
           [h('div', { class: 'grow' }, 'Soutien à l\'Assemblée'), h('b', {}, state.assemblee + ' / 100')],
           [h('div', { class: 'grow' }, 'Allocutions TV restantes'), h('b', {}, String(state.tvLeft))],
+          [h('div', { class: 'grow' }, [state.deficit > 0 ? 'Déficit public' : 'Excédent budgétaire', h('small', {}, 'La dette bouge chaque mois de ce montant ÷ 12')]), h('b', {}, Math.abs(Math.round(state.deficit)) + ' Md€/an')],
           [h('div', { class: 'grow' }, 'Dette / PIB'), h('b', {}, FM.debtRatio(state).toLocaleString('fr-FR') + ' %')]
         ])),
         h('h3', {}, '👔 Gouvernement (loyauté)'), h('div', {}, rows(cabinet)),

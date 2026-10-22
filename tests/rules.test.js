@@ -15,7 +15,8 @@ test('monthTick grows debt', () => {
   const s = newGame(FM);
   s.baril = 110;
   FM.monthTick(s, FM.createRng(3));
-  assert.strictEqual(s.dette, 3716);
+  // déficit structurel 160 Md€/an → 13,3 par mois, + 3 liés au baril
+  assert.strictEqual(s.dette, 3716.3);
 });
 
 test('faillite at 150 percent (still above threshold)', () => {
@@ -105,4 +106,22 @@ test('oil price settles instead of hitting the ceiling', () => {
   const rng = FM.createRng(11);
   for (let i = 0; i < 60; i++) FM.monthTick(s, rng);
   assert.ok(s.baril < 160, String(s.baril));
+});
+
+test('lower structural deficit slows the debt', () => {
+  const FM = load(...FILES);
+  const a = newGame(FM), b = newGame(FM);
+  a.baril = b.baril = 80;
+  b.deficit = 40;
+  FM.monthTick(a, FM.createRng(3)); FM.monthTick(b, FM.createRng(3));
+  assert.ok(Math.abs((a.dette - 3700) - 160 / 12) < 0.1, String(a.dette));
+  assert.ok(Math.abs((b.dette - 3700) - 40 / 12) < 0.1, String(b.dette));
+});
+
+test('a budget surplus reduces the debt', () => {
+  const FM = load(...FILES);
+  const s = newGame(FM);
+  s.baril = 80; s.deficit = -24;
+  FM.monthTick(s, FM.createRng(3));
+  assert.ok(s.dette < 3700, String(s.dette));
 });

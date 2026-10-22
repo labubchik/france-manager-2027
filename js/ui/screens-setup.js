@@ -73,6 +73,7 @@ var FM = (globalThis.FM = globalThis.FM || {});
     var cand = FM.CANDIDATES.find(function (c) { return c.id === p.candidateId; });
     var facts = [
       ['💶', 'Dette publique', FM.ui.formatMd(state.dette) + ' · ' + FM.debtRatio(state).toLocaleString('fr-FR') + ' % du PIB (record historique)'],
+      ['📉', 'Déficit public', state.deficit + ' Md€ par an, soit environ 5 % du PIB. Chaque réforme le fait bouger pour toute la suite du mandat.'],
       ['🛢️', 'Baril de Brent', state.baril + ' $ · le détroit d\'Ormuz est bloqué'],
       ['🌍', 'Golfe et Iran', 'Le conflit s\'éternise depuis le printemps 2026, la navigation est paralysée'],
       ['🇺🇦', 'Ukraine', 'La guerre continue, des négociations patinent'],

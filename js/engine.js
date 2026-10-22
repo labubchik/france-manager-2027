@@ -29,7 +29,7 @@ function scaleEffects(fx) {
   if (!fx || FM.EFFECT_SCALE === 1) return fx;
   var out = {};
   Object.keys(fx).forEach(function (k) {
-    if (k === 'wars') {
+    if (k === 'wars' || k === 'deficit') {
       out[k] = fx[k];
     } else if (typeof fx[k] === 'object') {
       out[k] = {};
@@ -179,7 +179,7 @@ FM.affectedGauges = function (choice) {
   var fx = addEffects(choice.effects, choice.use493 ? { popularite: -8, tension: 6 } : {});
   var size = function (v, big) { v = Math.abs(v || 0); return v === 0 ? 0 : (v < big ? 1 : 2); };
   return {
-    dette: size(fx.dette, 20),
+    dette: Math.max(size(fx.dette, 20), size(fx.deficit, 5)),
     popularite: size(fx.popularite, 8),
     tension: size(fx.tension, 8),
     danger: size(fx.danger, 8)

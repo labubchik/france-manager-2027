@@ -10,10 +10,10 @@ FM.CARDS.push(
       { label: 'Négocier', effects: { relations: { US: -4 }, dette: 2 } }
     ] },
   { id: 'geo-tromp-otan', family: 'geo', who: { leader: 'US' },
-    text: '« L\'OTAN, c\'est 5 % du PIB pour la défense. Vous êtes à 2 %. Vous êtes des profiteurs ! »',
+    text: '« L\'OTAN, c\'est 3,5 % du PIB pour la défense. Vous êtes à 2 %. Ça fait 40 milliards par an de plus, payez ! »',
     choices: [
-      { label: 'Monter à 3,5 %', effects: { dette: 15, relations: { US: 12 }, danger: -4 } },
-      { label: 'Défense européenne', effects: { dette: 6, relations: { US: -8, DE: 8 }, danger: -2 } },
+      { label: 'Monter à 3,5 %', effects: { deficit: 40, relations: { US: 12 }, danger: -4 } },
+      { label: 'Défense européenne', effects: { deficit: 10, relations: { US: -8, DE: 8 }, danger: -2 } },
       { label: 'Ignorer', effects: { relations: { US: -12 }, danger: 3 } }
     ] },
   { id: 'geo-tromp-droits-douane', family: 'geo', who: { leader: 'US' },
@@ -82,7 +82,7 @@ FM.CARDS.push(
     when: { min: { dette: 125 } },
     text: '« Votre dette inquiète Berlin. Il faut un plan de rigueur, sinon les marchés vont vous punir. »',
     choices: [
-      { label: 'Plan de rigueur', effects: { dette: -12, tension: 10, popularite: -5, relations: { DE: 12 } } },
+      { label: 'Plan de rigueur', effects: { deficit: -10, tension: 10, popularite: -5, relations: { DE: 12 } } },
       { label: '« Occupez-vous de vos affaires »', effects: { relations: { DE: -12 }, popularite: 3 } }
     ] },
   { id: 'geo-merzi-defense', family: 'geo', who: { leader: 'DE' },

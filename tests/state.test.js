@@ -65,3 +65,11 @@ test('applyEffects keeps gauges whole numbers', () => {
   FM.applyEffects(s, { danger: 1.2, tension: 4.5 });
   assert.ok(Number.isInteger(s.danger) && Number.isInteger(s.tension), s.danger + ' ' + s.tension);
 });
+
+test('structural deficit starts at 160 and moves with effects', () => {
+  const FM = load(...FILES);
+  const s = FM.createGame({ candidateId: FM.CANDIDATES[0].id, cabinet: anyCabinet(FM), seed: 1 });
+  assert.strictEqual(s.deficit, 160);
+  FM.applyEffects(s, { deficit: -10 });
+  assert.strictEqual(s.deficit, 150);
+});

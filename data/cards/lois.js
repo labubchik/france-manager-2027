@@ -3,27 +3,27 @@ var FM = (globalThis.FM = globalThis.FM || {});
 // Lois : on porte (vote incertain), on passe en force (49.3) ou on enterre.
 FM.CARDS.push(
   { id: 'lois-superprofits', family: 'lois', post: 'economie', who: { minister: 'economie' }, when: { ministerCamp: ['extreme-gauche', 'gauche', 'centre', 'extreme-droite'] },
-    text: 'Je propose une taxe exceptionnelle sur les superprofits des pétroliers et des banques.',
+    text: 'Prolongeons la surtaxe sur les bénéfices des très grandes entreprises : environ 8 Md€ par an.',
     choices: [
-      { label: 'Porter la loi', vote: { difficulty: 50, onPass: { dette: -10, popularite: 5 }, onFail: { popularite: -2 } } },
-      { label: '49.3', use493: true, vote: { onPass: { dette: -10, popularite: 5 } } },
+      { label: 'Porter la loi', vote: { difficulty: 50, onPass: { deficit: -8, popularite: 4 }, onFail: { popularite: -2 } }, campMod: { droite: { popularite: -3 } } },
+      { label: '49.3', use493: true, vote: { onPass: { deficit: -8, popularite: 4 } } },
       { label: 'Enterrer', effects: { loyalty: { economie: -8 } } }
     ] },
   { id: 'lois-immigration', family: 'lois', post: 'interieur', who: { minister: 'interieur' }, when: { ministerCamp: ['centre', 'droite', 'extreme-droite'] },
-    text: 'Ma loi immigration : quotas, fin de l\'aide médicale d\'État, expulsions accélérées.',
+    text: 'Ma loi immigration : quotas, expulsions accélérées et fin de l\'aide médicale d\'État (1,2 Md€ par an).',
     choices: [
-      { label: 'Porter la loi', setFlags: ['grande_loi'], vote: { difficulty: 55, onPass: { popularite: 3, tension: 4 }, onFail: { popularite: -3 } },
+      { label: 'Porter la loi', setFlags: ['grande_loi'], vote: { difficulty: 55, onPass: { popularite: 3, tension: 4, deficit: -1 }, onFail: { popularite: -3 } },
         campMod: { gauche: { popularite: -6 }, 'extreme-gauche': { popularite: -8 } } },
-      { label: '49.3', use493: true, vote: { onPass: { popularite: 2, tension: 5 } } },
+      { label: '49.3', use493: true, vote: { onPass: { popularite: 2, tension: 5, deficit: -1 } } },
       { label: 'Enterrer', effects: { loyalty: { interieur: -12 } }, campMod: { 'extreme-droite': { popularite: -6 } } }
     ] },
   { id: 'lois-budget', family: 'lois', post: 'premier', who: { minister: 'premier' },
     when: { minMonth: 5 },
     text: 'Le budget de l\'an prochain doit passer. Sans majorité, c\'est la censure assurée.',
     choices: [
-      { label: 'Négocier article par article', vote: { difficulty: 45, onPass: { dette: -5, popularite: 1 }, onFail: { dette: 10, popularite: -4 } } },
-      { label: '49.3', use493: true, vote: { onPass: { dette: -5 } } },
-      { label: 'Budget de rigueur', effects: { dette: -15, tension: 10, popularite: -6, assemblee: -5 } }
+      { label: 'Négocier article par article', vote: { difficulty: 45, onPass: { deficit: -5, popularite: 1 }, onFail: { deficit: 5, popularite: -4 } } },
+      { label: '49.3', use493: true, vote: { onPass: { deficit: -5 } } },
+      { label: 'Budget de rigueur', effects: { deficit: -20, tension: 10, popularite: -6, assemblee: -5 } }
     ] },
   { id: 'lois-proportionnelle', family: 'lois', who: { name: 'François Bayrouille', role: 'Président du MoDem', portrait: '🐴' },
     text: 'La proportionnelle aux législatives, je la demande depuis 1987. C\'est maintenant ou jamais.',
@@ -39,10 +39,10 @@ FM.CARDS.push(
       { label: 'Enterrer', effects: { tension: 5, loyalty: { travail: -10 } } }
     ] },
   { id: 'lois-assurance-chomage', family: 'lois', post: 'travail', who: { minister: 'travail' }, when: { ministerCamp: ['centre', 'droite'] },
-    text: 'Réforme de l\'assurance chômage : on réduit la durée d\'indemnisation de 25 %.',
+    text: 'Assurance chômage : durée d\'indemnisation réduite de 25 %, environ 4 Md€ d\'économies par an.',
     choices: [
-      { label: 'Porter la loi', vote: { difficulty: 50, onPass: { dette: -8, tension: 7, popularite: -3 }, onFail: { popularite: -2 } }, campMod: { gauche: { popularite: -5 } } },
-      { label: '49.3', use493: true, vote: { onPass: { dette: -8, tension: 7 } } },
+      { label: 'Porter la loi', vote: { difficulty: 50, onPass: { deficit: -4, tension: 7, popularite: -3 }, onFail: { popularite: -2 } }, campMod: { gauche: { popularite: -5 } } },
+      { label: '49.3', use493: true, vote: { onPass: { deficit: -4, tension: 7 } } },
       { label: 'Enterrer', effects: { loyalty: { travail: -6 } } }
     ] },
   { id: 'lois-ric', family: 'lois', who: { name: 'Un collectif citoyen', role: 'Pétition à 2 millions de signatures', portrait: '🗳️' },
@@ -66,17 +66,44 @@ FM.CARDS.push(
       { label: 'Enterrer', effects: { loyalty: { interieur: -10 } } }
     ] },
   { id: 'lois-niches-fiscales', family: 'lois', post: 'economie', who: { minister: 'economie' },
-    text: 'On supprime 30 niches fiscales. 12 milliards d\'économies, et 12 lobbies en colère.',
+    text: 'On supprime 23 des 470 niches fiscales : environ 5 Md€ par an, et 23 lobbies en colère.',
     choices: [
-      { label: 'Porter la loi', vote: { difficulty: 55, onPass: { dette: -12, popularite: -2, danger: 2 }, onFail: { popularite: -1 } } },
-      { label: '49.3', use493: true, vote: { onPass: { dette: -12, danger: 2 } } },
+      { label: 'Porter la loi', vote: { difficulty: 55, onPass: { deficit: -5, popularite: -2, danger: 2 }, onFail: { popularite: -1 } } },
+      { label: '49.3', use493: true, vote: { onPass: { deficit: -5, danger: 2 } } },
       { label: 'Enterrer', effects: { loyalty: { economie: -6 } } }
     ] },
   { id: 'lois-isf', family: 'lois', who: { name: 'Un député insoumis', role: 'La France Insoumise-moi-pas', portrait: '💎' },
-    text: 'Rétablissons l\'ISF ! Les riches ont gagné 30 % en deux ans pendant que le peuple trime.',
+    text: 'Rétablissons l\'ISF ! Il rapportait 5 Md€ par an avant 2018, l\'IFI qui l\'a remplacé à peine 2.',
     choices: [
-      { label: 'Soutenir le texte', vote: { difficulty: 60, onPass: { dette: -6, popularite: 5 }, onFail: { popularite: 1 } }, campMod: { droite: { popularite: -6 }, centre: { popularite: -4 } } },
+      { label: 'Soutenir le texte', vote: { difficulty: 60, onPass: { deficit: -5, popularite: 5 }, onFail: { popularite: 1 } }, campMod: { droite: { popularite: -6 }, centre: { popularite: -4 } } },
       { label: 'S\'y opposer', effects: { popularite: -2, assemblee: 2 }, campMod: { gauche: { popularite: -5 } } }
+    ] },
+  { id: 'lois-aides-entreprises', family: 'lois', who: { name: 'Fabien Gai-Luron', role: 'Rapporteur au Sénat', portrait: '🏭' },
+    text: 'Les aides aux entreprises coûtent entre 112 et 211 Md€ par an selon les calculs. En couper 10 % et les conditionner : environ 15 Md€.',
+    choices: [
+      { label: 'Couper 10 % et conditionner', vote: { difficulty: 55, onPass: { deficit: -15, popularite: 3, danger: 2 }, onFail: { popularite: -1 } }, campMod: { droite: { popularite: -4 }, centre: { popularite: -2 } } },
+      { label: 'Conditionner seulement', effects: { deficit: -3, popularite: 1 } },
+      { label: 'Ne touchez pas aux entreprises', effects: { popularite: -1 }, campMod: { gauche: { popularite: -4 } } }
+    ] },
+  { id: 'lois-fraude-fiscale', family: 'lois', who: { name: 'Une inspectrice des impôts', role: 'Contrôle fiscal', portrait: '🔍' },
+    text: 'La fraude fiscale est estimée entre 70 et 100 Md€ par an ; on en récupère à peine 11. Donnez-nous 5 000 contrôleurs.',
+    choices: [
+      { label: 'Recruter 5 000 contrôleurs', effects: { deficit: -6, popularite: 2, danger: 1 } },
+      { label: 'Les effectifs suffisent', effects: { popularite: -1 } }
+    ] },
+  { id: 'lois-fraude-sociale', family: 'lois', who: { name: 'Un rapporteur du HCFiPS', role: 'Haut conseil du financement de la protection sociale', portrait: '📑' },
+    text: 'La fraude sociale coûte environ 14 Md€ par an, surtout le travail au noir déclaré par les employeurs. On n\'en détecte que 2,2.',
+    choices: [
+      { label: 'Traquer le travail au noir', effects: { deficit: -2, tension: 1 }, campMod: { droite: { popularite: -1 } } },
+      { label: 'Cibler les allocataires', effects: { deficit: -1, tension: 3 }, campMod: { gauche: { popularite: -4 }, droite: { popularite: 3 }, 'extreme-droite': { popularite: 4 } } },
+      { label: 'Pas une priorité', effects: { popularite: -1 } }
+    ] },
+  { id: 'lois-annee-blanche', family: 'lois', post: 'economie', who: { minister: 'economie' }, when: { ministerCamp: ['centre', 'droite'] },
+    text: 'Année blanche : on gèle les retraites, les prestations et le barème de l\'impôt. Environ 7 Md€ d\'économies.',
+    choices: [
+      { label: 'Porter la loi', vote: { difficulty: 55, onPass: { deficit: -7, tension: 8, popularite: -5 }, onFail: { popularite: -2 } } },
+      { label: '49.3', use493: true, vote: { onPass: { deficit: -7, tension: 8 } } },
+      { label: 'Enterrer', effects: { loyalty: { economie: -6 } } }
     ] },
   { id: 'lois-decentralisation', family: 'lois', post: 'premier', who: { minister: 'premier' },
     text: 'Grand acte de décentralisation : on donne plus de pouvoir et d\'impôts aux régions.',

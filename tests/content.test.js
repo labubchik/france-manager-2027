@@ -9,7 +9,7 @@ const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const scripts = [...html.matchAll(/<script src="([^"]+)"/g)].map(m => m[1]).filter(s => !s.startsWith('js/ui/'));
 const FM = load(...scripts);
 
-const EFFECT_KEYS = ['dette', 'popularite', 'tension', 'danger', 'assemblee', 'baril', 'relations', 'loyalty', 'wars'];
+const EFFECT_KEYS = ['dette', 'deficit', 'popularite', 'tension', 'danger', 'assemblee', 'baril', 'relations', 'loyalty', 'wars'];
 const SYSTEM_FAMILIES = ['nucleaire'];
 const allChoices = () => FM.CARDS.flatMap(c => c.choices.map(ch => ({ c, ch })));
 
@@ -121,5 +121,27 @@ test('partisan proposals are restricted to coherent camps', () => {
     const c = FM.cardById(id);
     assert.ok(c.post && c.when && Array.isArray(c.when.ministerCamp), id);
     assert.ok(FM.MINISTERS.some(m => m.post === c.post && c.when.ministerCamp.includes(m.camp)), id + ' unreachable');
+  }
+});
+
+const deficitOf = (id, label) => {
+  const ch = FM.cardById(id).choices.find(x => x.label === label);
+  return ((ch.effects || {}).deficit || 0) + ((ch.vote && ch.vote.onPass && ch.vote.onPass.deficit) || 0);
+};
+
+test('fiscal levers use real annual estimates (Md€/an)', () => {
+  assert.ok(deficitOf('hot-taxe-zucman', 'Taxe Zucmanne') <= -5 && deficitOf('hot-taxe-zucman', 'Taxe Zucmanne') >= -20);
+  assert.strictEqual(deficitOf('lois-isf', 'Soutenir le texte'), -5);
+  assert.strictEqual(deficitOf('lois-niches-fiscales', 'Porter la loi'), -5);
+  assert.strictEqual(deficitOf('lois-assurance-chomage', 'Porter la loi'), -4);
+  assert.strictEqual(deficitOf('services-fonctionnaires', 'Supprimer les postes'), -5);
+  assert.strictEqual(deficitOf('hot-retraites-64', 'Retraite à 65 ans'), -10);
+});
+
+test('both left and right have real debt levers', () => {
+  for (const id of ['lois-aides-entreprises', 'lois-fraude-fiscale', 'lois-fraude-sociale', 'lois-annee-blanche']) {
+    const card = FM.cardById(id);
+    assert.ok(card, id);
+    assert.ok(card.choices.some(ch => (((ch.effects || {}).deficit || 0) + ((ch.vote && ch.vote.onPass && ch.vote.onPass.deficit) || 0)) < 0), id);
   }
 });

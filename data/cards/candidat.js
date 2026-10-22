@@ -18,8 +18,8 @@ FM.CARDS.push(
   { id: 'cand-lepain-tva', family: 'candidat', when: { candidate: 'lepain' }, post: 'economie', who: { minister: 'economie' },
     text: 'Votre promesse phare : TVA à 0 % sur 100 produits de première nécessité. Coût : 12 milliards.',
     choices: [
-      { label: 'Tenir la promesse', effects: { dette: 12, popularite: 7, tension: -4 } },
-      { label: 'Promesse divisée par deux', effects: { dette: 6, popularite: 2 } }
+      { label: 'Tenir la promesse', effects: { deficit: 12, popularite: 7, tension: -4 } },
+      { label: 'Promesse divisée par deux', effects: { deficit: 6, popularite: 2 } }
     ] },
   { id: 'cand-lepain-chats', family: 'candidat', when: { candidate: 'lepain' }, who: { name: 'Votre chargé de com', role: 'Élysée', portrait: '🐈' },
     text: 'Une vidéo de vous et vos chats à l\'Élysée ferait exploser les compteurs. On tourne ?',
@@ -90,8 +90,8 @@ FM.CARDS.push(
   { id: 'cand-flipper-rigueur', family: 'candidat', when: { candidate: 'flipper' }, post: 'economie', who: { minister: 'economie' },
     text: 'Vous aviez promis « 100 milliards d\'économies ». On commence où ?',
     choices: [
-      { label: 'Par les dépenses sociales', effects: { dette: -15, tension: 10, popularite: -5 } },
-      { label: 'Par les niches fiscales', effects: { dette: -10, danger: 3 } },
+      { label: 'Par les dépenses sociales', effects: { deficit: -15, tension: 10, popularite: -5 } },
+      { label: 'Par les niches fiscales', effects: { deficit: -5, danger: 3 } },
       { label: 'Plus tard', effects: { popularite: -2 } }
     ] },
 

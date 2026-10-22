@@ -25,6 +25,7 @@ FM.loadGame = function (storage) {
     var raw = st.getItem(FM.SAVE_KEY);
     if (!raw) return null;
     var state = JSON.parse(raw);
+    if (state && typeof state.deficit !== 'number' && FM.START) state.deficit = FM.START.deficit;
     return FM.isValidSave(state) ? state : null;
   } catch (e) {
     return null;

@@ -11,7 +11,7 @@ FM.DANGER_PER_HOSTILE = 0.6;
 // Ce qui se passe tout seul quand un mois se termine.
 FM.monthTick = function (state, rng) {
   state.pib = Math.round(state.pib * 1.0025 * 10) / 10;
-  FM.applyEffects(state, { dette: 13 + (state.baril - 80) * 0.1 });
+  FM.applyEffects(state, { dette: state.deficit / 12 + (state.baril - 80) * 0.1 });
   // Le baril fluctue autour de 90 $, tiré vers le haut par la guerre du Golfe.
   FM.applyEffects(state, { baril: rng.int(-6, 6) + (state.wars.golfe - 2) * 1.5 + (90 - state.baril) * 0.1 });
   FM.applyEffects(state, { tension: Math.round((state.baril - 100) * 0.05) });
