@@ -25,10 +25,25 @@ FM.loadGame = function (storage) {
     var raw = st.getItem(FM.SAVE_KEY);
     if (!raw) return null;
     var state = JSON.parse(raw);
-    return state && state.version === 1 ? state : null;
+    return FM.isValidSave(state) ? state : null;
   } catch (e) {
     return null;
   }
+};
+
+// Une sauvegarde qui ne correspond plus au contenu du jeu (candidat ou ministre supprimé, champ manquant) est ignorée.
+FM.isValidSave = function (state) {
+  if (!state || state.version !== 1 || typeof state.month !== 'number') return false;
+  if (!FM.CANDIDATES) return true;
+  if (!FM.CANDIDATES.some(function (c) { return c.id === state.candidateId; })) return false;
+  if (!state.cabinet || !FM.POSTS.every(function (post) {
+    var slot = state.cabinet[post];
+    return slot && FM.MINISTERS.some(function (m) { return m.id === slot.ministerId && m.post === post; });
+  })) return false;
+  var arrays = ['queue', 'recent', 'log', 'usedMinisters'];
+  var objects = ['seen', 'flags', 'relations', 'wars'];
+  return arrays.every(function (k) { return Array.isArray(state[k]); }) &&
+    objects.every(function (k) { return state[k] && typeof state[k] === 'object'; });
 };
 
 FM.clearSave = function (storage) {

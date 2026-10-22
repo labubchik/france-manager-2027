@@ -55,7 +55,8 @@ function scheduleSystemCards(state) {
       state.betrayalPost = post;
       state.betrayalPending = true;
       state.queue.push({ cardId: 'ministre-trahison', inCards: 0 });
-      FM.applyEffects(state, { danger: 10 });
+      // Une trahison inquiète, mais ne déclenche jamais la fin à elle seule.
+      FM.applyEffects(state, { danger: Math.max(0, Math.min(10, 99 - state.danger)) });
     }
   });
   nuclearCountries(state).forEach(function (code) {

@@ -192,11 +192,8 @@ var FM = (globalThis.FM = globalThis.FM || {});
         return;
       }
       var visible = refs.visible || [];
-      var i = -1;
-      if (visible.length === 2 && e.key === 'ArrowLeft') i = 0;
-      else if (visible.length === 2 && e.key === 'ArrowRight') i = 1;
-      else if (/^[123]$/.test(e.key)) i = Number(e.key) - 1;
-      if (i >= 0 && visible[i]) { e.preventDefault(); pick(visible[i].index, i === 0 ? -1 : 1); }
+      var i = FM.keyToChoice(e, visible.length);
+      if (i >= 0) { e.preventDefault(); pick(visible[i].index, i === 0 ? -1 : 1); }
     }
     document.addEventListener('keydown', onKey);
     FM.ui.cleanup = function () { document.removeEventListener('keydown', onKey); closePanel(); };

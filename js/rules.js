@@ -20,7 +20,7 @@ FM.monthTick = function (state, rng) {
   });
   // Chaque pays franchement hostile fait monter le risque d'« accident ».
   var hostile = Object.keys(state.relations).filter(function (c) { return state.relations[c] <= -60; }).length;
-  FM.applyEffects(state, { danger: hostile * FM.DANGER_PER_HOSTILE });
+  FM.applyEffects(state, { danger: Math.round(hostile * FM.DANGER_PER_HOSTILE) });
   Object.keys(state.wars).forEach(function (w) {
     if (state.wars[w] > 0 && rng.chance(0.1)) {
       var fx = {}; fx[w] = rng.chance(0.5) ? 1 : -1;

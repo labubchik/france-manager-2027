@@ -50,3 +50,15 @@ test('current card is available before any choice', () => {
   const { ctrl } = setup();
   assert.strictEqual(ctrl.current().id, 'monde-calme');
 });
+
+test('keyToChoice ignores repeats and modifier shortcuts', () => {
+  const { FM } = setup();
+  assert.strictEqual(FM.keyToChoice({ key: 'ArrowLeft' }, 2), 0);
+  assert.strictEqual(FM.keyToChoice({ key: 'ArrowRight' }, 2), 1);
+  assert.strictEqual(FM.keyToChoice({ key: '3' }, 3), 2);
+  assert.strictEqual(FM.keyToChoice({ key: '3' }, 2), -1);
+  assert.strictEqual(FM.keyToChoice({ key: 'ArrowLeft', repeat: true }, 2), -1);
+  assert.strictEqual(FM.keyToChoice({ key: 'ArrowLeft', altKey: true }, 2), -1);
+  assert.strictEqual(FM.keyToChoice({ key: '1', ctrlKey: true }, 3), -1);
+  assert.strictEqual(FM.keyToChoice({ key: '1', metaKey: true }, 3), -1);
+});

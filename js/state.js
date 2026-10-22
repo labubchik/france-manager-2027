@@ -49,7 +49,7 @@ FM.applyEffects = function (state, fx) {
   var clamp = FM.clamp;
   if (!fx) return state;
   if (fx.dette) state.dette = Math.round((state.dette + fx.dette) * 10) / 10;
-  FM.GAUGES.forEach(function (g) { if (fx[g]) state[g] = clamp(state[g] + fx[g], 0, 100); });
+  FM.GAUGES.forEach(function (g) { if (fx[g]) state[g] = Math.round(clamp(state[g] + fx[g], 0, 100)); });
   if (fx.baril) state.baril = clamp(state.baril + fx.baril, 40, 200);
   if (fx.relations) Object.keys(fx.relations).forEach(function (c) {
     if (c in state.relations) state.relations[c] = clamp(state.relations[c] + fx.relations[c], -100, 100);

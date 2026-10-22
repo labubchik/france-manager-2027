@@ -1,5 +1,14 @@
 var FM = (globalThis.FM = globalThis.FM || {});
 
+// Touche → index parmi les choix visibles, ou -1. Ignore la répétition et les raccourcis du navigateur.
+FM.keyToChoice = function (e, visibleCount) {
+  if (e.repeat || e.altKey || e.ctrlKey || e.metaKey) return -1;
+  if (visibleCount === 2 && e.key === 'ArrowLeft') return 0;
+  if (visibleCount === 2 && e.key === 'ArrowRight') return 1;
+  if (/^[123]$/.test(e.key) && Number(e.key) <= visibleCount) return Number(e.key) - 1;
+  return -1;
+};
+
 // Fait le lien entre l'écran de jeu et le moteur. Le verrou empêche qu'un double clic résolve deux choix.
 FM.createController = function (state, rng, hooks) {
   var locked = false;

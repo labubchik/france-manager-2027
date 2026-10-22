@@ -166,3 +166,12 @@ test('candidate tvBonus adds popularity on tv choices', () => {
   FM.resolveChoice(s, c, 0, rng);
   assert.strictEqual(s.popularite, 40 + FM.CANDIDATES.find(x => x.id === 'aichonchon').tvBonus);
 });
+
+test('betrayal alone never ends the game', () => {
+  const { FM, s, rng } = setup();
+  s.danger = 95;
+  s.cabinet.travail.loyalty = 0;
+  const r = FM.resolveChoice(s, plain({}), 1, rng);
+  assert.strictEqual(r.outcome.ending, null);
+  assert.ok(s.danger < 100);
+});

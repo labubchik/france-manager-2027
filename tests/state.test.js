@@ -57,3 +57,11 @@ test('data integrity', () => {
     assert.ok(FM.COUNTRIES[code].flag && FM.COUNTRIES[code].name, code);
   }
 });
+
+test('applyEffects keeps gauges whole numbers', () => {
+  const FM = load(...FILES);
+  const s = FM.createGame({ candidateId: FM.CANDIDATES[0].id, cabinet: anyCabinet(FM), seed: 1 });
+  s.danger = 40; s.tension = 40;
+  FM.applyEffects(s, { danger: 1.2, tension: 4.5 });
+  assert.ok(Number.isInteger(s.danger) && Number.isInteger(s.tension), s.danger + ' ' + s.tension);
+});
